@@ -1,7 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename: systemclass.cpp
 ////////////////////////////////////////////////////////////////////////////////
-
 #include "stdafx.h"
 #include "SystemClass.h"
 
@@ -36,12 +35,12 @@ bool SystemClass::Initialize()
 	// Windows API 초기화
 	InitializeWindows(screenWidth, screenHeight);
 
-	// 인풋 오브젝트 생성 및 초기화
+	// 인풋 객체 생성 및 초기화
 	// 유저로부터 키보드 입력을 받는 데 사용될 변수
 	m_Input = new InputClass;
 	m_Input->Initialize();
 
-	// 어플리케이션 클래스 오브젝트 생성 및 초기화
+	// 어플리케이션 클래스 객체 생성 및 초기화
 	// 이 어플리케이션에 관한 모든 그래픽을 렌더링하는 것을 조작한다.
 	m_Application = new ApplicationClass;
 	result = m_Application->Initialize(screenWidth, screenHeight, m_hwnd);
@@ -54,11 +53,11 @@ bool SystemClass::Initialize()
 }
 
 
-// 청소를 함. 어플리케이션과 입력 오브젝트에 관련한 모든 것을 닫음
+// 청소를 함. 어플리케이션과 입력 객체에 관련한 모든 것을 닫음
 // 창을 닫고 그와 관련한 핸들들을 청소한다.
 void SystemClass::Shutdown()
 {
-	// 어플리케이션 클래스 오브젝트 삭제 (Release)
+	// 어플리케이션 클래스 객체 삭제 (Release)
 	if (m_Application)
 	{
 		m_Application->Shutdown();
@@ -66,7 +65,7 @@ void SystemClass::Shutdown()
 		m_Application = 0;
 	}
 
-	// 입력 오브젝트 삭제
+	// 입력 객체 삭제
 	if (m_Input)
 	{
 		delete m_Input;
@@ -143,7 +142,7 @@ bool SystemClass::Frame()
 		return false;
 	}
 
-	// 애플리케이션 클래스 오브젝트를 위한 프레임 프로세싱
+	// 애플리케이션 클래스 객체를 위한 프레임 프로세싱
 	result = m_Application->Frame();
 	if (!result)
 	{
@@ -162,7 +161,7 @@ LRESULT CALLBACK SystemClass::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam
 		// 키가 눌렸는지 확인
 		case WM_KEYDOWN:
 		{
-			// 키가 눌렸으면 input 오브젝트로 보내야 상태를 기록할 수 있음
+			// 키가 눌렸으면 input 객체로 보내야 상태를 기록할 수 있음
 			m_Input->KeyDown((unsigned int)wparam);
 			return 0;
 		}
@@ -170,7 +169,7 @@ LRESULT CALLBACK SystemClass::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam
 		// 키가 떼졌는지 확인
 		case WM_KEYUP:
 		{
-			// 키가 떼졌으면 마찬가지로 input 오브젝트로 보내야 상태를 기록할 수 있음
+			// 키가 떼졌으면 마찬가지로 input 객체로 보내야 상태를 기록할 수 있음
 			m_Input->KeyUp((unsigned int)wparam);
 			return 0;
 		}

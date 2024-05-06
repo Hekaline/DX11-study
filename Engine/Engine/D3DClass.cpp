@@ -14,6 +14,7 @@ D3DClass::D3DClass(const D3DClass& other)
  
 D3DClass::~D3DClass()
 {
+
 }
  
  

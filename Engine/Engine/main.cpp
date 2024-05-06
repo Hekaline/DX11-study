@@ -10,17 +10,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pScmdline,
 	SystemClass* System;
 	bool result;
 
-	// 시스템 오브젝트 생성
+	// 시스템 객체 생성
 	System = new SystemClass;
 
-	// 시스템 오브젝트 초기화 및 실행
+	// 시스템 객체 초기화 및 실행
 	result = System->Initialize();
 	if (result)
 	{
 		System->Run();
 	}
 
-	// 시스템 오브젝트 셧다운 및 반환
+	// 시스템 객체 셧다운 및 반환
 	System->Shutdown();
 	delete System;
 	System = 0;

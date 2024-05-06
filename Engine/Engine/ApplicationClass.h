@@ -10,6 +10,12 @@
 //////////////
 #include "D3DClass.h"
 
+// 세 개의 새로운 클래스 추가
+// ApplicationClass가 씬을 렌더링할 때 쓰이는 주요 클래스이다
+#include "CameraClass.h"
+#include "ModelClass.h"
+#include "ColorShaderClass.h"
+
 /////////////
 // GLOBALS //
 /////////////
@@ -39,6 +45,9 @@ private:
 
 private:
 	D3DClass* m_Direct3D;
+	CameraClass* m_Camera;
+	ModelClass* m_Model;
+	ColorShaderClass* m_ColorShader;
 };
 
 #endif
