@@ -1,5 +1,5 @@
 # DX11-study
-DX11 공부하는 곳  
+DirectX11 공부하는 곳  
 <https://www.rastertek.com/tutindex.html>  
 <https://copynull.tistory.com/240>  
 <https://blog.nullbus.net/13>
