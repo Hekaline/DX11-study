@@ -4,7 +4,7 @@
 #include "CameraClass.h"
 #include "stdafx.h"
 
-// º¯¼ö ÃÊ±âÈ­
+// ë³€ìˆ˜ ì´ˆê¸°í™”
 CameraClass::CameraClass()
 {
 	m_positionX = 0.0f;
@@ -26,7 +26,7 @@ CameraClass::~CameraClass()
 
 }
 
-// SetPosition°ú SetRotation ÇÔ¼ö´Â À§Ä¡¿Í È¸ÀüÀ» ¼³Á¤ÇÏ´Â µ¥ »ç¿ëµÈ´Ù.
+// SetPositionê³¼ SetRotation í•¨ìˆ˜ëŠ” ìœ„ì¹˜ì™€ íšŒì „ì„ ì„¤ì •í•˜ëŠ” ë° ì‚¬ìš©ëœë‹¤.
 void CameraClass::SetPosition(float x, float y, float z)
 {
 	m_positionX = x;
@@ -45,7 +45,7 @@ void CameraClass::SetRotation(float x, float y, float z)
 	return;
 }
 
-// GetPosition°ú GetRotationÀº Ä«¸Þ¶óÀÇ À§Ä¡¿Í È¸ÀüÀ» ¹ÝÈ¯ÇÑ´Ù.
+// GetPositionê³¼ GetRotationì€ ì¹´ë©”ë¼ì˜ ìœ„ì¹˜ì™€ íšŒì „ì„ ë°˜í™˜í•œë‹¤.
 XMFLOAT3 CameraClass::GetPosition()
 {
 	return XMFLOAT3(m_positionX, m_positionY, m_positionZ);
@@ -56,12 +56,12 @@ XMFLOAT3 CameraClass::GetRotation()
 	return XMFLOAT3(m_rotationX, m_rotationY, m_rotationZ);
 }
 
-// ÀÌ ÇÔ¼ö´Â ºä Çà·ÄÀ» ºôµåÇÏ°í °»½ÅÇÏ±â À§ÇØ Ä«¸Þ¶óÀÇ À§Ä¡¿Í È¸ÀüÀ» »ç¿ëÇÑ´Ù.
-// ¸ÕÀú À§ÂÊ, À§Ä¡, È¸Àü µî¿¡ ´ëÇÑ º¯¼ö¸¦ ¼³Á¤ÇÑ´Ù. 
-// ±×·± ´ÙÀ½ Àå¸éÀÇ ¿øÁ¡¿¡¼­ Ä«¸Þ¶óÀÇ x, y, z È¸ÀüÀ» ±â¹ÝÀ¸·Î Ä«¸Þ¶ó¸¦ ¸ÕÀú È¸ÀüÇÑ´Ù.
-// Á¦´ë·Î È¸ÀüµÇ¸é Ä«¸Þ¶ó¸¦ 3D °ø°£ÀÇ À§Ä¡·Î ÀÌµ¿ÇÑ´Ù.
-// À§Ä¡, LookAt ¹× À§ÂÊÀÇ ¿Ã¹Ù¸¥ °ªÀ» »ç¿ëÇÏ¸é XMMATRIX LookAtLH ÇÔ¼ö¸¦ »ç¿ëÇÏ¿©
-// ÇöÀç Ä«¸Þ¶ó È¸Àü ¹× À§Ä¡¸¦ ³ªÅ¸³»´Â ºä Çà·ÄÀ» ¸¸µé ¼ö ÀÖ´Ù.
+// ì´ í•¨ìˆ˜ëŠ” ë·° í–‰ë ¬ì„ ë¹Œë“œí•˜ê³  ê°±ì‹ í•˜ê¸° ìœ„í•´ ì¹´ë©”ë¼ì˜ ìœ„ì¹˜ì™€ íšŒì „ì„ ì‚¬ìš©í•œë‹¤.
+// ë¨¼ì € ìœ„ìª½, ìœ„ì¹˜, íšŒì „ ë“±ì— ëŒ€í•œ ë³€ìˆ˜ë¥¼ ì„¤ì •í•œë‹¤. 
+// ê·¸ëŸ° ë‹¤ìŒ ìž¥ë©´ì˜ ì›ì ì—ì„œ ì¹´ë©”ë¼ì˜ x, y, z íšŒì „ì„ ê¸°ë°˜ìœ¼ë¡œ ì¹´ë©”ë¼ë¥¼ ë¨¼ì € íšŒì „í•œë‹¤.
+// ì œëŒ€ë¡œ íšŒì „ë˜ë©´ ì¹´ë©”ë¼ë¥¼ 3D ê³µê°„ì˜ ìœ„ì¹˜ë¡œ ì´ë™í•œë‹¤.
+// ìœ„ì¹˜, LookAt ë° ìœ„ìª½ì˜ ì˜¬ë°”ë¥¸ ê°’ì„ ì‚¬ìš©í•˜ë©´ XMMATRIX LookAtLH í•¨ìˆ˜ë¥¼ ì‚¬ìš©í•˜ì—¬
+// í˜„ìž¬ ì¹´ë©”ë¼ íšŒì „ ë° ìœ„ì¹˜ë¥¼ ë‚˜íƒ€ë‚´ëŠ” ë·° í–‰ë ¬ì„ ë§Œë“¤ ìˆ˜ ìžˆë‹¤.
 void CameraClass::Render()
 {
 	XMFLOAT3 up, position, lookAt;
@@ -69,55 +69,55 @@ void CameraClass::Render()
 	float yaw, pitch, roll;
 	XMMATRIX rotationMatrix;
 
-	// À§¸¦ °¡¸®Å°´Â º¤ÅÍ¸¦ ¼³Á¤ÇÑ´Ù.
+	// ìœ„ë¥¼ ê°€ë¦¬í‚¤ëŠ” ë²¡í„°ë¥¼ ì„¤ì •í•œë‹¤.
 	up.x = 0.0f;
 	up.y = 1.0f;
 	up.z = 0.0f;
 
-	// XMVECTOR ±¸Á¶Ã¼·Î ·ÎµåÇÑ´Ù.
+	// XMVECTOR êµ¬ì¡°ì²´ë¡œ ë¡œë“œí•œë‹¤.
 	upVector = XMLoadFloat3(&up);
 
-	// ¿ùµå ³» Ä«¸Þ¶óÀÇ À§Ä¡¸¦ ¼³Á¤ÇÑ´Ù.
+	// ì›”ë“œ ë‚´ ì¹´ë©”ë¼ì˜ ìœ„ì¹˜ë¥¼ ì„¤ì •í•œë‹¤.
 	position.x = m_positionX;
 	position.y = m_positionY;
 	position.z = m_positionZ;
 
-	// XMVECTOR ±¸Á¶Ã¼·Î ·ÎµåÇÑ´Ù.
+	// XMVECTOR êµ¬ì¡°ì²´ë¡œ ë¡œë“œí•œë‹¤.
 	positionVector = XMLoadFloat3(&position);
 
-	// Ä«¸Þ¶ó°¡ ¾îµð¸¦ º¸°í ÀÖ´ÂÁö¸¦ ±âº»°ªÀ¸·Î ¼³Á¤ÇÑ´Ù.
+	// ì¹´ë©”ë¼ê°€ ì–´ë””ë¥¼ ë³´ê³  ìžˆëŠ”ì§€ë¥¼ ê¸°ë³¸ê°’ìœ¼ë¡œ ì„¤ì •í•œë‹¤.
 	lookAt.x = 0.0f;
 	lookAt.y = 0.0f;
 	lookAt.z = 1.0f;
 
-	// XMVECTOR ±¸Á¶Ã¼·Î ·ÎµåÇÑ´Ù.
+	// XMVECTOR êµ¬ì¡°ì²´ë¡œ ë¡œë“œí•œë‹¤.
 	lookAtVector = XMLoadFloat3(&lookAt);
 
-	// Yaw(yÃà), Pitch(XÃà), Roll(ZÃà) È¸ÀüÀ» ¶óµð¾ÈÀ¸·Î ¼³Á¤ÇÑ´Ù.
+	// Yaw(yì¶•), Pitch(Xì¶•), Roll(Zì¶•) íšŒì „ì„ ë¼ë””ì•ˆìœ¼ë¡œ ì„¤ì •í•œë‹¤.
 	pitch = m_rotationX * 0.0174532925f;
 	yaw = m_rotationY * 0.0174532925f;
 	roll = m_rotationZ * 0.0174532925f;
 
-	// È¸Àü Çà·ÄÀ» yaw, pitch, roll °ªÀ¸·ÎºÎÅÍ ¸¸µç´Ù.
+	// íšŒì „ í–‰ë ¬ì„ yaw, pitch, roll ê°’ìœ¼ë¡œë¶€í„° ë§Œë“ ë‹¤.
 	rotationMatrix = XMMatrixRotationRollPitchYaw(pitch, yaw, roll);
 
-	// È¸Àü Çà·Ä¿¡ ÀÇÇØ lookAt ¹× up º¤ÅÍ¸¦ º¯È¯ÇÏ¿©
-	// ºä°¡ ¿øÁ¡¿¡¼­ ¿Ã¹Ù¸£°Ô È¸ÀüµÇµµ·Ï ÇÔ
+	// íšŒì „ í–‰ë ¬ì— ì˜í•´ lookAt ë° up ë²¡í„°ë¥¼ ë³€í™˜í•˜ì—¬
+	// ë·°ê°€ ì›ì ì—ì„œ ì˜¬ë°”ë¥´ê²Œ íšŒì „ë˜ë„ë¡ í•¨
 	lookAtVector = XMVector3TransformCoord(lookAtVector, rotationMatrix);
 	upVector = XMVector3TransformCoord(upVector, rotationMatrix);
 
-	// È¸ÀüµÈ Ä«¸Þ¶ó Æ÷Áö¼ÇÀ» ºä¾îÀÇ À§Ä¡·Î °¡Á®¿Â´Ù
+	// íšŒì „ëœ ì¹´ë©”ë¼ í¬ì§€ì…˜ì„ ë·°ì–´ì˜ ìœ„ì¹˜ë¡œ ê°€ì ¸ì˜¨ë‹¤
 	lookAtVector = XMVectorAdd(positionVector, lookAtVector);
 
-	// ¼¼ °³ÀÇ °»½ÅµÈ º¤ÅÍ·ÎºÎÅÍ ºä Çà·ÄÀ» ¸¸µç´Ù.
+	// ì„¸ ê°œì˜ ê°±ì‹ ëœ ë²¡í„°ë¡œë¶€í„° ë·° í–‰ë ¬ì„ ë§Œë“ ë‹¤.
 	m_viewMatrix = XMMatrixLookAtLH(positionVector, lookAtVector, upVector);
 
 	return;
 }
 
-// Render ÇÔ¼ö¸¦ È£ÃâÇÏ¿© ºä Çà·ÄÀ» ¸¸µç ÈÄ ÀÌ ÇÔ¼ö¸¦ »ç¿ëÇÏ¿©
-// °»½ÅµÈ ºä Çà·ÄÀ» È£Ãâ ÇÔ¼ö¿¡ Á¦°øÇÒ ¼ö ÀÖ´Ù.
-// ºä Çà·ÄÀ» HLSL ¹öÅØ½º ¼ÎÀÌ´õ¿¡ »ç¿ëµÇ´Â ¼¼ °¡Áö ÁÖ¿ä Çà·Ä Áß ÇÏ³ªÀÌ´Ù.
+// Render í•¨ìˆ˜ë¥¼ í˜¸ì¶œí•˜ì—¬ ë·° í–‰ë ¬ì„ ë§Œë“  í›„ ì´ í•¨ìˆ˜ë¥¼ ì‚¬ìš©í•˜ì—¬
+// ê°±ì‹ ëœ ë·° í–‰ë ¬ì„ í˜¸ì¶œ í•¨ìˆ˜ì— ì œê³µí•  ìˆ˜ ìžˆë‹¤.
+// ë·° í–‰ë ¬ì„ HLSL ë²„í…ìŠ¤ ì…°ì´ë”ì— ì‚¬ìš©ë˜ëŠ” ì„¸ ê°€ì§€ ì£¼ìš” í–‰ë ¬ ì¤‘ í•˜ë‚˜ì´ë‹¤.
 void CameraClass::GetViewMatrix(XMMATRIX& viewMatrix)
 {
 	viewMatrix = m_viewMatrix;

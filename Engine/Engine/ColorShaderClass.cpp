@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "ColorShaderClass.h"
 
-// private Æ÷ÀÎÅÍ ÃÊ±âÈ­
+// private í¬ì¸í„° ì´ˆê¸°í™”
 ColorShaderClass::ColorShaderClass()
 {
 	m_vertexShader = 0;
@@ -27,7 +27,7 @@ bool ColorShaderClass::Initialize(ID3D11Device* device, HWND hwnd)
 	wchar_t psFilename[128];
 	int error;
 
-	// ²ÀÁşÁ¡ ¼ÎÀÌ´õ¿Í ÇÈ¼¿ ¼ÎÀÌ´õ ÆÄÀÏ ÀÌ¸§ ¼³Á¤
+	// ê¼­ì§“ì  ì…°ì´ë”ì™€ í”½ì…€ ì…°ì´ë” íŒŒì¼ ì´ë¦„ ì„¤ì •
 	error = wcscpy_s(vsFilename, 128, L"../Engine/Color.vs");
 	if (error != 0)
 	{
@@ -40,7 +40,7 @@ bool ColorShaderClass::Initialize(ID3D11Device* device, HWND hwnd)
 		return false;
 	}
 
-	// ²ÀÁşÁ¡ ¼ÎÀÌ´õ¿Í ÇÈ¼¿ ¼ÎÀÌ´õ ÃÊ±âÈ­
+	// ê¼­ì§“ì  ì…°ì´ë”ì™€ í”½ì…€ ì…°ì´ë” ì´ˆê¸°í™”
 	result = InitializeShader(device, hwnd, vsFilename, psFilename);
 	if (!result)
 	{
@@ -52,36 +52,36 @@ bool ColorShaderClass::Initialize(ID3D11Device* device, HWND hwnd)
 
 void ColorShaderClass::Shutdown()
 {
-	// ¹öÅØ½º¿Í ÇÈ¼¿ ¼ÎÀÌ´õ ¹× °ü·Ã °´Ã¼ Á¾·á
+	// ë²„í…ìŠ¤ì™€ í”½ì…€ ì…°ì´ë” ë° ê´€ë ¨ ê°ì²´ ì¢…ë£Œ
 	ShutdownShader();
 	
 	return;
 }
 
-// Render´Â ¸ÕÀú SetShaderParameters ÇÔ¼ö¸¦ »ç¿ëÇÏ¿© ¼ÎÀÌ´õ ³»ºÎÀÇ ¸Å°³º¯¼ö¸¦ ¼³Á¤
-// ¸Å°³º¯¼ö°¡ ¼³Á¤µÇ¸é RenderShader¸¦ È£ÃâÇÏ¿© HLSL ¼ÎÀÌ´õ¸¦ »ç¿ëÇÏ¿© ³ì»ö »ï°¢ÇüÀ» ±×¸²
+// RenderëŠ” ë¨¼ì € SetShaderParameters í•¨ìˆ˜ë¥¼ ì‚¬ìš©í•˜ì—¬ ì…°ì´ë” ë‚´ë¶€ì˜ ë§¤ê°œë³€ìˆ˜ë¥¼ ì„¤ì •
+// ë§¤ê°œë³€ìˆ˜ê°€ ì„¤ì •ë˜ë©´ RenderShaderë¥¼ í˜¸ì¶œí•˜ì—¬ HLSL ì…°ì´ë”ë¥¼ ì‚¬ìš©í•˜ì—¬ ë…¹ìƒ‰ ì‚¼ê°í˜•ì„ ê·¸ë¦¼
 bool ColorShaderClass::Render
 (ID3D11DeviceContext* deviceContext, int indexCount,
 	XMMATRIX worldMatrix, XMMATRIX viewMatrix, XMMATRIX projectionMatrix)
 {
 	bool result;
 
-	// ·»´õ¸µ¿¡ »ç¿ëÇÒ ¼ÎÀÌ´õ ÆÄ¶ó¹ÌÅÍ ¼³Á¤
+	// ë Œë”ë§ì— ì‚¬ìš©í•  ì…°ì´ë” íŒŒë¼ë¯¸í„° ì„¤ì •
 	result = SetShaderParameters(deviceContext, worldMatrix, viewMatrix, projectionMatrix);
 	if (!result)
 	{
 		return false;
 	}
 
-	// ¼ÎÀÌ´õ¿Í ÇÔ²² ÁØºñµÈ ¹öÆÛ¸¦ ·»´õ¸µ
+	// ì…°ì´ë”ì™€ í•¨ê»˜ ì¤€ë¹„ëœ ë²„í¼ë¥¼ ë Œë”ë§
 	RenderShader(deviceContext, indexCount);
 
 	return true;
 }
 
-// ¼ÎÀÌ´õ ÆÄÀÏÀ» ·ÎµåÇÏ°í DX¿Í GPU¿¡¼­ »ç¿ëÇÒ ¼ö ÀÖµµ·Ï ¸¸µå´Â ÇÔ¼ö
-// ·¹ÀÌ¾Æ¿ô ¼³Á¤°ú ²ÀÁşÁ¡ ¹öÆÛ µ¥ÀÌÅÍ°¡ GPUÀÇ ±×·¡ÇÈ ÆÄÀÌÇÁ¶óÀÎ¿¡¼­ ¾î¶»°Ô º¸ÀÏ Áöµµ º¼ ¼ö ÀÖÀ½
-// ·¹ÀÌ¾Æ¿ôÀº color.vs ÆÄÀÏ¿¡ Á¤ÀÇµÈ °Í»Ó¸¸ ¾Æ´Ï¶ó ModelClass.h ÆÄÀÏÀÇ VertexType°ú ÀÏÄ¡ÇØ¾ß ÇÑ´Ù
+// ì…°ì´ë” íŒŒì¼ì„ ë¡œë“œí•˜ê³  DXì™€ GPUì—ì„œ ì‚¬ìš©í•  ìˆ˜ ìˆë„ë¡ ë§Œë“œëŠ” í•¨ìˆ˜
+// ë ˆì´ì•„ì›ƒ ì„¤ì •ê³¼ ê¼­ì§“ì  ë²„í¼ ë°ì´í„°ê°€ GPUì˜ ê·¸ë˜í”½ íŒŒì´í”„ë¼ì¸ì—ì„œ ì–´ë–»ê²Œ ë³´ì¼ ì§€ë„ ë³¼ ìˆ˜ ìˆìŒ
+// ë ˆì´ì•„ì›ƒì€ color.vs íŒŒì¼ì— ì •ì˜ëœ ê²ƒë¿ë§Œ ì•„ë‹ˆë¼ ModelClass.h íŒŒì¼ì˜ VertexTypeê³¼ ì¼ì¹˜í•´ì•¼ í•œë‹¤
 bool ColorShaderClass::InitializeShader
 (ID3D11Device* device, HWND hwnd, 
     WCHAR* vsFilename, WCHAR* psFilename)
@@ -94,25 +94,25 @@ bool ColorShaderClass::InitializeShader
 	unsigned int numElements;
 	D3D11_BUFFER_DESC matrixBufferDesc;
 
-	// ÀÌ ÇÔ¼ö°¡ »ç¿ëÇÒ Æ÷ÀÎÅÍ¸¦ ³Î·Î ¼³Á¤
+	// ì´ í•¨ìˆ˜ê°€ ì‚¬ìš©í•  í¬ì¸í„°ë¥¼ ë„ë¡œ ì„¤ì •
 	errorMessage = 0;
 	vertexShaderBuffer = 0;
 	pixelShaderBuffer = 0;
 
-	// ÀÌÁ¦ ¿©±â¼­ ¼ÎÀÌ´õ ÇÁ·Î±×·¥À» ¹öÆÛ·Î ÄÄÆÄÀÏ
-	// ¼ÎÀÌ´õ ÆÄÀÏ ÀÌ¸§, ¼ÎÀÌ´õ ÀÌ¸§, ¼ÎÀÌ´õ ¹öÀü, ¼ÎÀÌ´õ°¡ ÄÄÆÄÀÏµÉ ¹öÆÛ°¡ ÀÎÀÚÀÌ´Ù
+	// ì´ì œ ì—¬ê¸°ì„œ ì…°ì´ë” í”„ë¡œê·¸ë¨ì„ ë²„í¼ë¡œ ì»´íŒŒì¼
+	// ì…°ì´ë” íŒŒì¼ ì´ë¦„, ì…°ì´ë” ì´ë¦„, ì…°ì´ë” ë²„ì „, ì…°ì´ë”ê°€ ì»´íŒŒì¼ë  ë²„í¼ê°€ ì¸ìì´ë‹¤
 	
-	// ²ÀÁşÁ¡ ¼ÎÀÌ´õ ÄÄÆÄÀÏ
+	// ê¼­ì§“ì  ì…°ì´ë” ì»´íŒŒì¼
 	result = D3DCompileFromFile(vsFilename, NULL, NULL, "ColorVertexShader", 
 		"vs_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0, &vertexShaderBuffer, &errorMessage);
 	if (FAILED(result))
 	{
-		// ¼ÎÀÌ´õ ÄÄÆÄÀÏ ½ÇÆĞ
+		// ì…°ì´ë” ì»´íŒŒì¼ ì‹¤íŒ¨
 		if (errorMessage)
 		{
 			OutputShaderErrorMessage(errorMessage, hwnd, vsFilename);
 		}
-		// ¿¡·¯ ¸Ş½ÃÁö°¡ ¾Æ¹«°Íµµ ¾ø¾ú´Ù¸é ´Ü¼øÈ÷ ¼ÎÀÌ´õ ÆÄÀÏÀ» Ã£À» ¼ö ¾ø¾ú´ø °Í
+		// ì—ëŸ¬ ë©”ì‹œì§€ê°€ ì•„ë¬´ê²ƒë„ ì—†ì—ˆë‹¤ë©´ ë‹¨ìˆœíˆ ì…°ì´ë” íŒŒì¼ì„ ì°¾ì„ ìˆ˜ ì—†ì—ˆë˜ ê²ƒ
 		else
 		{
 			MessageBox(hwnd, vsFilename, L"Missing Shader File", MB_OK);
@@ -121,18 +121,18 @@ bool ColorShaderClass::InitializeShader
 		return false;
 	}
 
-	// ÇÈ¼¿ ¼ÎÀÌ´õ ÄÚµå ÄÄÆÄÀÏ
+	// í”½ì…€ ì…°ì´ë” ì½”ë“œ ì»´íŒŒì¼
 	result = D3DCompileFromFile(psFilename, NULL, NULL, "ColorPixelShader", "ps_5_0",
 		D3D10_SHADER_ENABLE_STRICTNESS, 0, &pixelShaderBuffer, &errorMessage);
 
 	if (FAILED(result))
 	{
-		// ¼ÎÀÌ´õ ÄÄÆÄÀÏ¿¡ ½ÇÆĞÇÏ¸é ¿¡·¯ ¸Ş½ÃÁö¿¡ ¹«¾ğ°¡°¡ ¾²¿© ÀÖÀ» °Í
+		// ì…°ì´ë” ì»´íŒŒì¼ì— ì‹¤íŒ¨í•˜ë©´ ì—ëŸ¬ ë©”ì‹œì§€ì— ë¬´ì–¸ê°€ê°€ ì“°ì—¬ ìˆì„ ê²ƒ
 		if (errorMessage)
 		{
 			OutputShaderErrorMessage(errorMessage, hwnd, psFilename);
 		}
-		// ¿¡·¯ ¸Ş½ÃÁö¿¡ ¾Æ¹«°Íµµ ¾ø¾ú´Ù¸é ´Ü¼øÈ÷ ÆÄÀÏÀ» ¸ø Ã£Àº °Í
+		// ì—ëŸ¬ ë©”ì‹œì§€ì— ì•„ë¬´ê²ƒë„ ì—†ì—ˆë‹¤ë©´ ë‹¨ìˆœíˆ íŒŒì¼ì„ ëª» ì°¾ì€ ê²ƒ
 		else
 		{
 			MessageBox(hwnd, psFilename, L"Missing Shader File", MB_OK);
@@ -141,10 +141,10 @@ bool ColorShaderClass::InitializeShader
 		return false;
 	}
 
-	// ²ÀÁşÁ¡ ¼ÎÀÌ´õ¿Í ÇÈ¼¿ ¼ÎÀÌ´õ°¡ ¹öÆÛ·Î ¼º°øÀûÀ¸·Î ÄÄÆÄÀÏµÇ¸é, ±× ¹öÆÛ¸¦ »ç¿ëÇÏ¿© ¼ÎÀÌ´õ °´Ã¼ Á÷Á¢ ¸¸µé±â
-	// ¿©±â¼­ ³ª¿Â Æ÷ÀÎÅÍ¸¦ ²ÀÁşÁ¡ ¹× ÇÈ¼¿ ¼ÎÀÌ´õÀÇ ÀÎÅÍÆäÀÌ½º·Î »ç¿ëÇÑ´Ù.
+	// ê¼­ì§“ì  ì…°ì´ë”ì™€ í”½ì…€ ì…°ì´ë”ê°€ ë²„í¼ë¡œ ì„±ê³µì ìœ¼ë¡œ ì»´íŒŒì¼ë˜ë©´, ê·¸ ë²„í¼ë¥¼ ì‚¬ìš©í•˜ì—¬ ì…°ì´ë” ê°ì²´ ì§ì ‘ ë§Œë“¤ê¸°
+	// ì—¬ê¸°ì„œ ë‚˜ì˜¨ í¬ì¸í„°ë¥¼ ê¼­ì§“ì  ë° í”½ì…€ ì…°ì´ë”ì˜ ì¸í„°í˜ì´ìŠ¤ë¡œ ì‚¬ìš©í•œë‹¤.
 
-	// ¹öÆÛ¿¡¼­ ²ÀÁşÁ¡ ¼ÎÀÌ´õ ¸¸µé±â
+	// ë²„í¼ì—ì„œ ê¼­ì§“ì  ì…°ì´ë” ë§Œë“¤ê¸°
 	result = device->CreateVertexShader(vertexShaderBuffer->GetBufferPointer(), 
 		vertexShaderBuffer->GetBufferSize(), NULL, &m_vertexShader);
 	if (FAILED(result))
@@ -152,7 +152,7 @@ bool ColorShaderClass::InitializeShader
 		return false;
 	}
 
-	// ¹öÆÛ¿¡¼­ ÇÈ¼¿ ¼ÎÀÌ´õ ¸¸µé±â
+	// ë²„í¼ì—ì„œ í”½ì…€ ì…°ì´ë” ë§Œë“¤ê¸°
 	result = device->CreatePixelShader(pixelShaderBuffer->GetBufferPointer(),
 		pixelShaderBuffer->GetBufferSize(), NULL, &m_pixelShader);
 	if (FAILED(result))
@@ -160,10 +160,10 @@ bool ColorShaderClass::InitializeShader
 		return false;
 	}
 
-	// ¼ÎÀÌ´õ¿¡¼­ »ç¿ëÇÒ ²ÀÁşÁ¡ µ¥ÀÌÅÍÀÇ ·¹ÀÌ¾Æ¿ô »ı¼º
-	// À§Ä¡ º¤ÅÍ¿Í »ö»ó º¤ÅÍ¸¦ »ç¿ëÇÏ¹Ç·Î °¢°¢ÀÇ º¤ÅÍÀÇ Å©±â¸¦ Æ÷ÇÔÇÏ´Â µÎ ·¹ÀÌ¾Æ¿ôÀ» ¸¸µç´Ù
-	// SemanticNameÀº ÀÌ ¿ä¼Ò°¡ ·¹ÀÌ¾Æ¿ô¿¡¼­ ¾î¶»°Ô »ç¿ëµÇ´ÂÁö ¾Ë·ÁÁÖ¹Ç·Î ¸ÕÀú ÀÛ¼ºÇØ¾ß ÇÒ Ç×¸ñÀÌ´Ù.
-	// positionÀ» ¸ÕÀú, color¸¦ µÎ ¹øÂ°·Î Ã³¸®ÇÑ´Ù.
+	// ì…°ì´ë”ì—ì„œ ì‚¬ìš©í•  ê¼­ì§“ì  ë°ì´í„°ì˜ ë ˆì´ì•„ì›ƒ ìƒì„±
+	// ìœ„ì¹˜ ë²¡í„°ì™€ ìƒ‰ìƒ ë²¡í„°ë¥¼ ì‚¬ìš©í•˜ë¯€ë¡œ ê°ê°ì˜ ë²¡í„°ì˜ í¬ê¸°ë¥¼ í¬í•¨í•˜ëŠ” ë‘ ë ˆì´ì•„ì›ƒì„ ë§Œë“ ë‹¤
+	// SemanticNameì€ ì´ ìš”ì†Œê°€ ë ˆì´ì•„ì›ƒì—ì„œ ì–´ë–»ê²Œ ì‚¬ìš©ë˜ëŠ”ì§€ ì•Œë ¤ì£¼ë¯€ë¡œ ë¨¼ì € ì‘ì„±í•´ì•¼ í•  í•­ëª©ì´ë‹¤.
+	// positionì„ ë¨¼ì €, colorë¥¼ ë‘ ë²ˆì§¸ë¡œ ì²˜ë¦¬í•œë‹¤.
 	polygonLayout[0].SemanticName = "POSITION";
 	polygonLayout[0].SemanticIndex = 0;
 	polygonLayout[0].Format = DXGI_FORMAT_R32G32B32_FLOAT;
@@ -177,18 +177,18 @@ bool ColorShaderClass::InitializeShader
 	polygonLayout[1].Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
 	polygonLayout[1].InputSlot = 0;
 
-	// ÀÌ ·¹ÀÌ¾Æ¿ô¿¡¼­´Â Ã³À½ 12¹ÙÀÌÆ®¸¦ À§Ä¡ º¤ÅÍ¿¡¼­ »ç¿ëÇÏ°í ´ÙÀ½ 16¹ÙÀÌÆ®¸¦ »ö»óÀ¸·Î »ç¿ëÇØ¾ß ÇÑ´Ù´Â °ÍÀ» ¾Ë·ÁÁà¾ß ÇÔ
-	// Á÷Á¢ °ªÀ» ÀÔ·ÂÇÏ±âº¸´Ù ¸ÅÅ©·Î¸¦ ÁöÁ¤ÇÏ¿© ÀÚµ¿À¸·Î ¾Ë¾Æ³»µµ·Ï ÇÔ
+	// ì´ ë ˆì´ì•„ì›ƒì—ì„œëŠ” ì²˜ìŒ 12ë°”ì´íŠ¸ë¥¼ ìœ„ì¹˜ ë²¡í„°ì—ì„œ ì‚¬ìš©í•˜ê³  ë‹¤ìŒ 16ë°”ì´íŠ¸ë¥¼ ìƒ‰ìƒìœ¼ë¡œ ì‚¬ìš©í•´ì•¼ í•œë‹¤ëŠ” ê²ƒì„ ì•Œë ¤ì¤˜ì•¼ í•¨
+	// ì§ì ‘ ê°’ì„ ì…ë ¥í•˜ê¸°ë³´ë‹¤ ë§¤í¬ë¡œë¥¼ ì§€ì •í•˜ì—¬ ìë™ìœ¼ë¡œ ì•Œì•„ë‚´ë„ë¡ í•¨
 	polygonLayout[1].AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT; 
 	polygonLayout[1].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
 	polygonLayout[1].InstanceDataStepRate = 0;
 
-	// ·¹ÀÌ¾Æ¿ôÀÇ Desc°¡ Ã¤¿öÁö¸é ÀÌ°ÍÀÇ Å©±â¸¦ °¡Áö°í D3D µğ¹ÙÀÌ½º¸¦ »ç¿ëÇÏ¿© ÀÔ·Â ·¹ÀÌ¾Æ¿ô »ı¼º
-	// ·¹ÀÌ¾Æ¿ôÀÌ »ı¼ºµÇ¸é ²ÀÁşÁ¡/ÇÈ¼¿ ¼ÎÀÌ´õ ¹öÆÛµéÀº ´õ ÀÌ»ó »ç¿ëµÇÁö ¾ÊÀ¸¹Ç·Î ÇÒ´ç ÇØÁ¦
-	// ·¹ÀÌ¾Æ¿ô ¿ä¼Ò °³¼ö °¡Á®¿À±â
+	// ë ˆì´ì•„ì›ƒì˜ Descê°€ ì±„ì›Œì§€ë©´ ì´ê²ƒì˜ í¬ê¸°ë¥¼ ê°€ì§€ê³  D3D ë””ë°”ì´ìŠ¤ë¥¼ ì‚¬ìš©í•˜ì—¬ ì…ë ¥ ë ˆì´ì•„ì›ƒ ìƒì„±
+	// ë ˆì´ì•„ì›ƒì´ ìƒì„±ë˜ë©´ ê¼­ì§“ì /í”½ì…€ ì…°ì´ë” ë²„í¼ë“¤ì€ ë” ì´ìƒ ì‚¬ìš©ë˜ì§€ ì•Šìœ¼ë¯€ë¡œ í• ë‹¹ í•´ì œ
+	// ë ˆì´ì•„ì›ƒ ìš”ì†Œ ê°œìˆ˜ ê°€ì ¸ì˜¤ê¸°
 	numElements = sizeof(polygonLayout) / sizeof(polygonLayout[0]);
 	
-	// ²ÀÁşÁ¡ ÀÔ·Â ·¹ÀÌ¾Æ¿ô »ı¼º
+	// ê¼­ì§“ì  ì…ë ¥ ë ˆì´ì•„ì›ƒ ìƒì„±
 	result = device->CreateInputLayout(polygonLayout, numElements, vertexShaderBuffer->GetBufferPointer(),
 									   vertexShaderBuffer->GetBufferSize(), &m_layout);
 
@@ -197,25 +197,25 @@ bool ColorShaderClass::InitializeShader
 		return false;
 	}
 
-	// ´õ ÀÌ»ó »ç¿ëµÇÁö ¾Ê´Â ²ÀÁşÁ¡ ¼ÎÀÌ´õ ¹öÆÛ¿Í ÇÈ¼¿ ¼ÎÀÌ´õ ¹öÆÛ¸¦ ÇØÁ¦
+	// ë” ì´ìƒ ì‚¬ìš©ë˜ì§€ ì•ŠëŠ” ê¼­ì§“ì  ì…°ì´ë” ë²„í¼ì™€ í”½ì…€ ì…°ì´ë” ë²„í¼ë¥¼ í•´ì œ
 	vertexShaderBuffer->Release();
 	vertexShaderBuffer = 0;
 
 	pixelShaderBuffer->Release();
 	pixelShaderBuffer = 0;
 
-	// ¼ÎÀÌ´õ¸¦ »ç¿ëÇÏ±â À§ÇÑ ¸¶Áö¸· ´Ü°è´Â »ó¼ö ¹öÆÛÀÌ´Ù.
-	// ²ÀÁşÁ¡ ¼ÎÀÌ´õ¿¡¼­Ã³·³ ÇöÀç ´Ü ÇÏ³ªÀÇ »ó¼ö ¹öÆÛ¸¸ °¡Áö°í ÀÖ´Ù.
+	// ì…°ì´ë”ë¥¼ ì‚¬ìš©í•˜ê¸° ìœ„í•œ ë§ˆì§€ë§‰ ë‹¨ê³„ëŠ” ìƒìˆ˜ ë²„í¼ì´ë‹¤.
+	// ê¼­ì§“ì  ì…°ì´ë”ì—ì„œì²˜ëŸ¼ í˜„ì¬ ë‹¨ í•˜ë‚˜ì˜ ìƒìˆ˜ ë²„í¼ë§Œ ê°€ì§€ê³  ìˆë‹¤.
 	
-	// ²ÀÁşÁ¡ ¼ÎÀÌ´õ¿¡ ÀÖ´Â Çà·Ä »ó¼ö ¹öÆÛÀÇ description ÀÛ¼º
+	// ê¼­ì§“ì  ì…°ì´ë”ì— ìˆëŠ” í–‰ë ¬ ìƒìˆ˜ ë²„í¼ì˜ description ì‘ì„±
 	matrixBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
 	matrixBufferDesc.ByteWidth = sizeof(MatrixBufferType);
-	matrixBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER; // »ó¼ö ¹öÆÛ¸¦ ÀÌ ¹öÆÛ·Î ÇÑ´Ù.
-	matrixBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE; // cpu¿¡ ¾²±â ¾×¼¼½º¸¦ ÇÒ ¼ö ÀÖ´Ù.
+	matrixBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER; // ìƒìˆ˜ ë²„í¼ë¥¼ ì´ ë²„í¼ë¡œ í•œë‹¤.
+	matrixBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE; // cpuì— ì“°ê¸° ì•¡ì„¸ìŠ¤ë¥¼ í•  ìˆ˜ ìˆë‹¤.
 	matrixBufferDesc.MiscFlags = 0;
 	matrixBufferDesc.StructureByteStride = 0;
 
-	// »ó¼ö ¹öÆÛ Æ÷ÀÎÅÍ¸¦ ¸¸µé¾î ÀÌ Å¬·¡½º¿¡¼­ ²ÀÁşÁ¡ ¼ÎÀÌ´õ »ó¼ö ¹öÆÛ¿¡ Á¢±ÙÇÒ ¼ö ÀÖ°Ô ÇÔ
+	// ìƒìˆ˜ ë²„í¼ í¬ì¸í„°ë¥¼ ë§Œë“¤ì–´ ì´ í´ë˜ìŠ¤ì—ì„œ ê¼­ì§“ì  ì…°ì´ë” ìƒìˆ˜ ë²„í¼ì— ì ‘ê·¼í•  ìˆ˜ ìˆê²Œ í•¨
 	result = device->CreateBuffer(&matrixBufferDesc, NULL, &m_matrixBuffer);
 	if (FAILED(result))
 	{
@@ -227,28 +227,28 @@ bool ColorShaderClass::InitializeShader
 
 void ColorShaderClass::ShutdownShader()
 {
-	// »ó¼ö ¹öÆÛ ÇØÁ¦
+	// ìƒìˆ˜ ë²„í¼ í•´ì œ
 	if (m_matrixBuffer)
 	{
 		m_matrixBuffer->Release();
 		m_matrixBuffer = 0;
 	}
 
-	// ·¹ÀÌ¾Æ¿ô ÇØÁ¦
+	// ë ˆì´ì•„ì›ƒ í•´ì œ
 	if (m_layout)
 	{
 		m_layout->Release();
 		m_layout = 0;
 	}
 
-	// ÇÈ¼¿ ¼ÎÀÌ´õ ÇØÁ¦
+	// í”½ì…€ ì…°ì´ë” í•´ì œ
 	if (m_pixelShader)
 	{
 		m_pixelShader->Release();
 		m_pixelShader = 0;
 	}
 
-	// ²ÀÁşÁ¡ ¼ÎÀÌ´õ ÇØÁ¦
+	// ê¼­ì§“ì  ì…°ì´ë” í•´ì œ
 	if (m_vertexShader)
 	{
 		m_vertexShader->Release();
@@ -258,43 +258,43 @@ void ColorShaderClass::ShutdownShader()
 	return;
 }
 
-// ²ÀÁşÁ¡ÀÌ³ª ÇÈ¼¿ ¼ÎÀÌ´õ ÄÄÆÄÀÏ µµÁß ¿À·ù ¸Ş½ÃÁö Ãâ·Â
+// ê¼­ì§“ì ì´ë‚˜ í”½ì…€ ì…°ì´ë” ì»´íŒŒì¼ ë„ì¤‘ ì˜¤ë¥˜ ë©”ì‹œì§€ ì¶œë ¥
 void ColorShaderClass::OutputShaderErrorMessage(ID3D10Blob* errorMessage, HWND hwnd, WCHAR* shaderFileName)
 {
 	char* compileErrors;
 	unsigned long bufferSize, i;
 	ofstream fout;
 
-	// ¿¡·¯ ¸Ş½ÃÁö¸¦ ´ã°í ÀÖ´Â ¹®ÀÚ¿­ ¹öÆÛÀÇ Æ÷ÀÎÅÍ °¡Á®¿À±â
+	// ì—ëŸ¬ ë©”ì‹œì§€ë¥¼ ë‹´ê³  ìˆëŠ” ë¬¸ìì—´ ë²„í¼ì˜ í¬ì¸í„° ê°€ì ¸ì˜¤ê¸°
 	compileErrors = (char*)(errorMessage->GetBufferPointer());
 
-	// ¸Ş½ÃÁöÀÇ ±æÀÌ °¡Á®¿À±â
+	// ë©”ì‹œì§€ì˜ ê¸¸ì´ ê°€ì ¸ì˜¤ê¸°
 	bufferSize = errorMessage->GetBufferSize();
 
-	// ÆÄÀÏÀ» ¿­°í ¾È¿¡ ¸Ş½ÃÁö ±â·Ï
+	// íŒŒì¼ì„ ì—´ê³  ì•ˆì— ë©”ì‹œì§€ ê¸°ë¡
 	fout.open("shader-error.txt");
 
-	// ¿¡·¯ ¸Ş½ÃÁö ÀÛ¼º
+	// ì—ëŸ¬ ë©”ì‹œì§€ ì‘ì„±
 	for (i = 0; i < bufferSize; i++)
 	{
 		fout << compileErrors[i];
 	}
 
-	// ÆÄÀÏ ´İ±â
+	// íŒŒì¼ ë‹«ê¸°
 	fout.close();
 
-	// ¿¡·¯ ¸Ş½ÃÁö ÇØÁ¦
+	// ì—ëŸ¬ ë©”ì‹œì§€ í•´ì œ
 	errorMessage->Release();
 	errorMessage = 0;
 
-	// ÄÄÆÄÀÏ ¿¡·¯°¡ ÀÖÀ½À» ÆË¾÷À¸·Î ¾Ë¸²
+	// ì»´íŒŒì¼ ì—ëŸ¬ê°€ ìˆìŒì„ íŒì—…ìœ¼ë¡œ ì•Œë¦¼
 	MessageBox(hwnd, L"Error compiling shader. Check shader-error.txt for message.", shaderFileName, MB_OK);
 
 	return;
 }
 
-// ¼ÎÀÌ´õÀÇ º¯¼ö¸¦ ½±°Ô ´Ù·ç±â À§ÇØ ¸¸µç ÇÔ¼ö
-// ÀÌ ÇÔ¼ö¿¡ »ç¿ëµÈ Çà·ÄµéÀº GraphicsClass¿¡¼­ ¸¸µé¾îÁü
+// ì…°ì´ë”ì˜ ë³€ìˆ˜ë¥¼ ì‰½ê²Œ ë‹¤ë£¨ê¸° ìœ„í•´ ë§Œë“  í•¨ìˆ˜
+// ì´ í•¨ìˆ˜ì— ì‚¬ìš©ëœ í–‰ë ¬ë“¤ì€ GraphicsClassì—ì„œ ë§Œë“¤ì–´ì§
 bool ColorShaderClass::SetShaderParameters
 (ID3D11DeviceContext* deviceContext, XMMATRIX worldMatrix, 
 	XMMATRIX viewMatrix, XMMATRIX projectionMatrix)
@@ -304,54 +304,53 @@ bool ColorShaderClass::SetShaderParameters
 	MatrixBufferType* dataPtr;
 	unsigned int bufferNumber;
 
-	// Çà·ÄÀ» transposeÇÏ¿© ¼ÎÀÌ´õ¿¡¼­ »ç¿ëÇÒ ¼ö ÀÖ°Ô ÇÔ
+	// í–‰ë ¬ì„ transposeí•˜ì—¬ ì…°ì´ë”ì—ì„œ ì‚¬ìš©í•  ìˆ˜ ìˆê²Œ í•¨
 	worldMatrix = XMMatrixTranspose(worldMatrix);
 	viewMatrix = XMMatrixTranspose(viewMatrix);
 	projectionMatrix = XMMatrixTranspose(projectionMatrix);
 
-	// m_matrixBuffer¸¦ Àá±×°í Çà·ÄµéÀ» ¼³Á¤ÇÑ ÈÄ Àá±İ ÇØÁ¦
-	// »ó¼ö ¹öÆÛ¸¦ Àá°¡¾ß ÀÛ¼ºµÉ ¼ö ÀÖ´Ù.
+	// m_matrixBufferë¥¼ ì ê·¸ê³  í–‰ë ¬ë“¤ì„ ì„¤ì •í•œ í›„ ì ê¸ˆ í•´ì œ
+	// ìƒìˆ˜ ë²„í¼ë¥¼ ì ê°€ì•¼ ì‘ì„±ë  ìˆ˜ ìˆë‹¤.
 	result = deviceContext->Map(m_matrixBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 	if (FAILED(result))
 	{
 		return false;
 	}
 
-	// »ó¼ö ¹öÆÛÀÇ µ¥ÀÌÅÍ¸¦ Æ÷ÀÎÅÍ·Î ¹Ş¾Æ¿Â´Ù
+	// ìƒìˆ˜ ë²„í¼ì˜ ë°ì´í„°ë¥¼ í¬ì¸í„°ë¡œ ë°›ì•„ì˜¨ë‹¤
 	dataPtr = (MatrixBufferType*)mappedResource.pData;
 
-	// »ó¼ö ¹öÆÛ·Î Çà·Äµé º¹»ç
+	// ìƒìˆ˜ ë²„í¼ë¡œ í–‰ë ¬ë“¤ ë³µì‚¬
 	dataPtr->world = worldMatrix;
 	dataPtr->view = viewMatrix;
 	dataPtr->projection = projectionMatrix;
 
-	// »ó¼ö ¹öÆÛ Àá±İ ÇØÁ¦
+	// ìƒìˆ˜ ë²„í¼ ì ê¸ˆ í•´ì œ
 	deviceContext->Unmap(m_matrixBuffer, 0);
 
-	// ÀÌÁ¦ HLSL ²ÀÁşÁ¡ ¼ÎÀÌ´õ ¾È¿¡ ÀÖ´Â °»½ÅµÈ Çà·ÄÀ» ¼³Á¤ÇÑ´Ù.
-	// ²ÀÁşÁ¡ ¼ÎÀÌ´õ ³»ÀÇ »ó¼ö ¹öÆÛÀÇ À§Ä¡ ¼³Á¤
+	// ì´ì œ HLSL ê¼­ì§“ì  ì…°ì´ë” ì•ˆì— ìˆëŠ” ê°±ì‹ ëœ í–‰ë ¬ì„ ì„¤ì •í•œë‹¤.
+	// ê¼­ì§“ì  ì…°ì´ë” ë‚´ì˜ ìƒìˆ˜ ë²„í¼ì˜ ìœ„ì¹˜ ì„¤ì •
 	bufferNumber = 0;
 
-	// ²ÀÁşÁ¡ ¼ÎÀÌ´õ ³»ÀÇ »ó¼ö ¹öÆÛ¸¦ °»½ÅµÈ °ªÀ¸·Î ¼³Á¤
+	// ê¼­ì§“ì  ì…°ì´ë” ë‚´ì˜ ìƒìˆ˜ ë²„í¼ë¥¼ ê°±ì‹ ëœ ê°’ìœ¼ë¡œ ì„¤ì •
 	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &m_matrixBuffer);
 
 	return true;
 }
 
-// ÀÌ ÇÔ¼ö´Â Render ÇÔ¼ö¿¡¼­ µÎ ¹øÂ°·Î È£ÃâµÈ´Ù. 
-// ÀÌ°ÍÀÌ È£ÃâµÇ±â Àü SetShaderParameter°¡ È£ÃâµÇ¾î¾ß ¼ÎÀÌ´õ º¯¼öµéÀÌ Á¦´ë·Î ¼³Á¤µÈ´Ù.
+// ì´ í•¨ìˆ˜ëŠ” Render í•¨ìˆ˜ì—ì„œ ë‘ ë²ˆì§¸ë¡œ í˜¸ì¶œëœë‹¤. 
+// ì´ê²ƒì´ í˜¸ì¶œë˜ê¸° ì „ SetShaderParameterê°€ í˜¸ì¶œë˜ì–´ì•¼ ì…°ì´ë” ë³€ìˆ˜ë“¤ì´ ì œëŒ€ë¡œ ì„¤ì •ëœë‹¤.
 void ColorShaderClass::RenderShader(ID3D11DeviceContext* deviceContext, int indexCount)
 {
-	// ²ÀÁşÁ¡ ÀÔ·Â ·¹ÀÌ¾Æ¿ô ¼³Á¤
+	// ê¼­ì§“ì  ì…ë ¥ ë ˆì´ì•„ì›ƒ ì„¤ì •
 	deviceContext->IASetInputLayout(m_layout);
 
-	// »ï°¢ÇüÀ» ·»´õ¸µÇÏ´Â µ¥ ¾²ÀÏ ²ÀÁşÁ¡°ú ÇÈ¼¿ ¼ÎÀÌ´õ¸¦ ¼³Á¤ÇÑ´Ù.
+	// ì‚¼ê°í˜•ì„ ë Œë”ë§í•˜ëŠ” ë° ì“°ì¼ ê¼­ì§“ì ê³¼ í”½ì…€ ì…°ì´ë”ë¥¼ ì„¤ì •í•œë‹¤.
 	deviceContext->VSSetShader(m_vertexShader, NULL, 0);
 	deviceContext->PSSetShader(m_pixelShader, NULL, 0);
 
-	// »ï°¢ÇüÀ» ·»´õÇÑ´Ù.
+	// ì‚¼ê°í˜•ì„ ë Œë”í•œë‹¤.
 	deviceContext->DrawIndexed(indexCount, 0, 0);
 
 	return;
 }
-
