@@ -10,7 +10,7 @@
 #include "stdafx.h"
 #include <d3d11.h>
 
-// º»·¡ D3DX10Math.h¿´À¸³ª ¿À·¡µÇ¾î ¾ø¾îÁö°í DirectXMath.h·Î ¹Ù²î¾ú´Ù.
+// ë³¸ë˜ D3DX10Math.hì˜€ìœ¼ë‚˜ ì˜¤ë˜ë˜ì–´ ì—†ì–´ì§€ê³  DirectXMath.hë¡œ ë°”ë€Œì—ˆë‹¤.
 #include <DirectXMath.h> 
 
 
@@ -18,14 +18,14 @@
 // Class name: ModelClass
 ////////////////////////////////////////
 
-// 3D ¸ğµ¨µéÀÇ º¹ÀâÇÑ ±âÇÏÇĞµéÀ» Ä¸½¶È­ÇÏ´Â Å¬·¡½º
+// 3D ëª¨ë¸ë“¤ì˜ ë³µì¡í•œ ê¸°í•˜í•™ë“¤ì„ ìº¡ìŠí™”í•˜ëŠ” í´ë˜ìŠ¤
 class ModelClass
 {
 private:
 	struct VertexType
 	{
-		XMFLOAT3 position; // º»·¡ D3DXVector3¿´À¸³ª DXMath·Î Çì´õÆÄÀÏÀÌ º¯°æµÊ¿¡ µû¶ó ¹Ù²ñ
-		XMFLOAT4 color; // ¸¶Âù°¡Áö
+		XMFLOAT3 position; // ë³¸ë˜ D3DXVector3ì˜€ìœ¼ë‚˜ DXMathë¡œ í—¤ë”íŒŒì¼ì´ ë³€ê²½ë¨ì— ë”°ë¼ ë°”ë€œ
+		XMFLOAT4 color; // ë§ˆì°¬ê°€ì§€
 	};
 
 public:

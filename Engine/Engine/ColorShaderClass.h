@@ -1,3 +1,4 @@
+
 /////////////////////////////////////////////
 // Filename: ColorShaderClass.h
 /////////////////////////////////////////////
@@ -18,12 +19,12 @@ using namespace std;
 // Class name: ColorShaderClass
 ///////////////////////////////////////
 
-// GPU »ó¿¡ Á¸ÀçÇÏ´Â 3D ¸ðµ¨µéÀ» ±×¸®´Â µ¥ »ç¿ëÇÏ´Â
-// HLSL ¼ÎÀÌ´õ¸¦ È£ÃâÇÏ´Â Å¬·¡½º
+// GPU ìƒì— ì¡´ìž¬í•˜ëŠ” 3D ëª¨ë¸ë“¤ì„ ê·¸ë¦¬ëŠ” ë° ì‚¬ìš©í•˜ëŠ”
+// HLSL ì…°ì´ë”ë¥¼ í˜¸ì¶œí•˜ëŠ” í´ëž˜ìŠ¤
 class ColorShaderClass
 {
 private:
-	// Á¤Á¡ ¼ÎÀÌ´õ¿¡ »ç¿ëµÉ cBuffer ±¸Á¶Ã¼ÀÇ Á¤ÀÇ
+	// ì •ì  ì…°ì´ë”ì— ì‚¬ìš©ë  cBuffer êµ¬ì¡°ì²´ì˜ ì •ì˜
 	struct MatrixBufferType
 	{
 		XMMATRIX world;
@@ -40,9 +41,9 @@ public:
 	void Shutdown();
 	bool Render(ID3D11DeviceContext*, int, XMMATRIX, XMMATRIX, XMMATRIX);
 
-	// ¼ÎÀÌ´õÀÇ ÃÊ±âÈ­ ¹× ¸¶¹«¸® Á¦¾î
-	// Render ÇÔ¼ö´Â ¼ÎÀÌ´õ¿¡ »ç¿ëµÇ´Â º¯¼ö¸¦ ¼³Á¤ÇÏ°í
-	// ¼ÎÀÌ´õ¸¦ ÀÌ¿ëÇØ ÁØºñµÈ ¸ðµ¨µéÀÇ Á¤Á¡À» ±×·Á³½´Ù
+	// ì…°ì´ë”ì˜ ì´ˆê¸°í™” ë° ë§ˆë¬´ë¦¬ ì œì–´
+	// Render í•¨ìˆ˜ëŠ” ì…°ì´ë”ì— ì‚¬ìš©ë˜ëŠ” ë³€ìˆ˜ë¥¼ ì„¤ì •í•˜ê³ 
+	// ì…°ì´ë”ë¥¼ ì´ìš©í•´ ì¤€ë¹„ëœ ëª¨ë¸ë“¤ì˜ ì •ì ì„ ê·¸ë ¤ë‚¸ë‹¤
 private:
 	bool InitializeShader(ID3D11Device*, HWND, WCHAR*, WCHAR*);
 	void ShutdownShader();

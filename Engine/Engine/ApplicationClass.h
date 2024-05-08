@@ -10,8 +10,8 @@
 //////////////
 #include "D3DClass.h"
 
-// ¼¼ °³ÀÇ »õ·Î¿î Å¬·¡½º Ãß°¡
-// ApplicationClass°¡ ¾ÀÀ» ·»´õ¸µÇÒ ¶§ ¾²ÀÌ´Â ÁÖ¿ä Å¬·¡½ºÀÌ´Ù
+// ì„¸ ê°œì˜ ìƒˆë¡œìš´ í´ë˜ìŠ¤ ì¶”ê°€
+// ApplicationClassê°€ ì”¬ì„ ë Œë”ë§í•  ë•Œ ì“°ì´ëŠ” ì£¼ìš” í´ë˜ìŠ¤ì´ë‹¤
 #include "CameraClass.h"
 #include "ModelClass.h"
 #include "ColorShaderClass.h"
